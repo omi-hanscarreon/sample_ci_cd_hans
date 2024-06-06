@@ -1,26 +1,40 @@
-on: push
-name:  Sample Flutter analyze and flutter test check
+name: Flutter CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-    build:
-      name: Dev Pr Checker
-      runs-on: ubuntu-latest
-      steps:
-       
-        - uses: actions/checkout@v4
-        - name: Set up Flutter
-          uses: subosito/flutter-action@v2
-          with:
-            channel: 'stable'
-            flutter-version: '3.19.6'
-        - run: flutter --version
-        - name: Setup Dart SDK
-          uses: dart-lang/setup-dart@v1.5.1
-          with:
-            sdk: 3.3.4
-        - run: dart --version
-        - run: cd mobile_sample
-        - run: flutter clean
-        - run: flutter pub get
-        - run: flutter analyze .
-        # - run: flutter test --coverage
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Dart
+        uses: dart-lang/setup-dart@v1.5.1
+        with:
+          sdk: "3.3.4"
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.19.6" # Replace with your Flutter version
+
+      - name: Get Dart version
+        run: dart --version
+
+      - name: Navigate to sample_mobile and run Flutter commands
+        run: |
+          cd mobile_sample
+          flutter clean
+          flutter pub get
+          flutter analyze .
+    
+
+   
