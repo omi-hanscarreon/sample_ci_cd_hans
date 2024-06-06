@@ -43,6 +43,7 @@ jobs:
 
       - name: run and check unit test
         run: |
+          cd mobile_sample
           flutter test --coverage
           genhtml coverage/lcov.info -o coverage/html 
           coverde check $COVERAGE_CHECK
