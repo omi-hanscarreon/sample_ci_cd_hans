@@ -11,6 +11,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      COVERAGE_CHECK: ${{ vars.PERCENTAGE_COVERAGE }}
 
     steps:
       - name: Checkout repository
@@ -35,6 +37,12 @@ jobs:
           flutter clean
           flutter pub get
           flutter analyze .
-    
 
-   
+      - name: run coverde globall
+        run: dart pub global activate coverde
+
+      - name: run and check unit test
+        run: |
+          flutter test --coverage
+          genhtml coverage/lcov.info -o coverage/html 
+          coverde check $COVERAGE_CHECK
