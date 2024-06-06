@@ -19,6 +19,7 @@ jobs:
           with:
             sdk: 3.3.4
         - run: dart --version
+        - run: cd mobile_sample
         - run: flutter clean
         - run: flutter pub get
         - run: flutter analyze .
