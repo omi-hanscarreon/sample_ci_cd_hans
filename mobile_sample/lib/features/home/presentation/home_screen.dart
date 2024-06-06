@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sample_ci_cd_hans/features/profile/presentation/profile_screen.dart';
 
 class HomeScreenArgs {
   final String title;
@@ -21,6 +22,9 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
+    if (_counter >= 3) {
+      Navigator.pushNamed(context, ProfileScreen.routeName);
+    }
     setState(() {
       _counter++;
     });
